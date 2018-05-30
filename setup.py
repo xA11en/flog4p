@@ -7,7 +7,7 @@ DESCRIPTION = "Lightweight python log frame"
 AUTHOR = "Allen Chen"
 AUTHOR_EMAIL = "1010584905@qq.com"
 URL = "https://github.com/xA11en/flog4p.git"
-VERSION = __import__(PACKAGE).__version__
+VERSION = 'v0.0.1'
 
 setup(
     name=NAME,
@@ -26,5 +26,4 @@ setup(
         "Programming Language :: Python",
     ],
     packages=["flog4p"],
-    zip_safe=False,
 )

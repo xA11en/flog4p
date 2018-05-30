@@ -1,5 +1,5 @@
 # -*-coding:utf-8-*-
-import util, os, threading, thread, traceback,datetime
+import util, os, threading, thread, traceback,datetime,time
 
 if thread:
     _lock = threading.RLock()
@@ -90,7 +90,6 @@ class LoggerManager(object):
             self._write_log(logDir, logLevel)
 
     def _wLog(self, file_log):
-        print self.role
         if self.role == Constant.MASTER:
             if self.dequeMaster is None or len(self.dequeMaster) == 0:
                 raise Exception('dequeMaster is null at least one value')
@@ -104,7 +103,6 @@ class LoggerManager(object):
             if self.dequeSlave is None or len(len(self.dequeSlave)) == 0:
                 raise Exception('dequeSlave is null at least one value')
             else:
-                print self.dequeSlave,'BBBBBBB'
                 for msgs in self.dequeSlave:
                     with open(file_log, 'a+') as f:
                         f.write(msgs + '\n')
@@ -112,10 +110,6 @@ class LoggerManager(object):
                 self.dequeSlave.clear()
 
     def _write_log(self, logDir, logLevel):
-        try:
-            import time
-        except:
-            raise ImportError
         while True:
             _currentTimeMills = int(round(time.time() * 1000))
             try:
@@ -128,12 +122,11 @@ class LoggerManager(object):
             except:
                 traceback.format_exc()
                 break
-            finally:
+            finally: 
                 _releaseLock()
 
 
 class Logger(object):
-    import threading
     _instance_lock = threading.Lock()
 
     def __new__(cls, *args, **kwargs):
