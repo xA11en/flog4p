@@ -1,5 +1,5 @@
 # -*-coding:utf-8-*-
-import datetime, threading,re
+import datetime, threading, re
 
 
 def getTimeMillis():
@@ -32,7 +32,7 @@ def format_log(*args):
     if len(args) != 1:
         arrayStar = []
         for i in args:
-            if isinstance(i,basestring):
+            if isinstance(i, basestring):
                 arrayStar.append(i)
             else:
                 arrayStar.append(str(i))

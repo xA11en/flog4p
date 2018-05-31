@@ -70,6 +70,7 @@ class LoggerManager(object):
             if not isFile:
                 print logStrMsgs
             else:
+                print logStrMsgs
                 self._putMsgsToDeque(logStrMsgs)
                 self.nextWriteTime = _timeMills + Constant.WRITE_LOG_TIME_INTERVAL
                 if logPath is None:
@@ -100,7 +101,7 @@ class LoggerManager(object):
                 self.role = Constant.SLAVE
                 self.dequeMaster.clear()
         elif self.role == Constant.SLAVE:
-            if self.dequeSlave is None or len(len(self.dequeSlave)) == 0:
+            if self.dequeSlave is None or len(self.dequeSlave) == 0:
                 raise Exception('dequeSlave is null at least one value')
             else:
                 for msgs in self.dequeSlave:
@@ -117,12 +118,13 @@ class LoggerManager(object):
                 file_log = logDir + Constant.FILE_SEPARATOR + logLevel + Constant.FILE_EXTENSIONS
                 if _currentTimeMills >= self.nextWriteTime:
                     self._wLog(file_log)
+                    break
                 else:
                     continue
             except:
-                traceback.format_exc()
+                print traceback.format_exc()
                 break
-            finally: 
+            finally:
                 _releaseLock()
 
 
@@ -142,7 +144,7 @@ class Logger(object):
         self.manager = LoggerManager()
 
     def info(self, *args):
-        LoggerManager()._productLog(self.is_file, self.log_path, Constant.LOG_INFO, *args)
+        self.manager._productLog(self.is_file, self.log_path, Constant.LOG_INFO, *args)
 
     def error(self, *args):
-        LoggerManager()._productLog(self.is_file, self.log_path, Constant.LOG_ERROR, *args)
+        self.manager._productLog(self.is_file, self.log_path, Constant.LOG_ERROR, *args)
