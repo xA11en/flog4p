@@ -1,4 +1,4 @@
-# flog4p
+# flog4p 为QA而生
 ### 使用方法
 - git clone  后
 - 把setup.py 放到上级目录 然后执行 python setup.py install 
